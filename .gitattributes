@@ -1,0 +1,6 @@
+﻿# Ustawienie znakow linii na UNIXowe.
+* text=lf
+
+# Zdefiniowane pliki tekstowe do konwersji znakow konca linii.
+*.c text
+*.h text
