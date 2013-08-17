@@ -1,0 +1,729 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Diagram klas - Silnik</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div id="vplink" style="position:absolute; z-index:21; visibility:hidden">
+		<table bordercolor="#A9BFD3" cellpadding="0" border="1" cellspacing="0">
+			<tr>
+				<td>
+					<table width="100%" cellpadding="0" border="0" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+Link:							</td>
+							<td style="font-size: 12px;" align="right">
+								<input id="vplink-checkbox" onClick="javascript: vpLinkToggleName()" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="spotlight_top" style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;">
+	</div>
+	<div id="spotlight_bottom" style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;">
+	</div>
+	<div id="spotlight_left" style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;">
+	</div>
+	<div id="spotlight_right" style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;">
+	</div>
+	<canvas id="spotlight_c" height="100" style="position:absolute; z-index:2; visibility:hidden" width="100">
+	</canvas>
+	<div id="spotLightResourcesTop" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="spotLightResourcesRight" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="linkPopupMenuLayer" style="position:absolute;z-index:4;visibility:hidden">
+		<table id="linkPopupMenuTable" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" width="100%" border="0">
+		</table>
+	</div>
+	<div id="referenceIconLayer" style="position:absolute; z-index:1; visibility:hidden; ">
+		<table style="font-size:1;" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="subdiagramIconLayer" style="position:absolute; z-index:1; visibility:hidden; ">
+		<table style="font-size:1;" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="transitorIconLayer" style="position:absolute; z-index:1; visibility:hidden; ">
+		<table style="font-size:1;" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="documentationIconLayer" style="position:absolute; z-index:1; visibility:hidden; ">
+		<table style="font-size:1;" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		untitled Dokumentacja	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div id="vplink" style="position:absolute; z-index:21; visibility:hidden">
+		<table bordercolor="#A9BFD3" cellpadding="0" border="1" cellspacing="0">
+			<tr>
+				<td>
+					<table width="100%" cellpadding="0" border="0" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+Link:							</td>
+							<td style="font-size: 12px;" align="right">
+								<input id="vplink-checkbox" onClick="javascript: vpLinkToggleName()" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+		<a target="_content_pane" class="PageParentTitle" href="Package_aC_yEQKGAqESXANV.html">
+Silnik : Pakiet</a>
+	</p>
+	<p class="PageTitle">
+		Diagram klas - Silnik		<a style="padding-left: 16px; font-size: 12px" onclick="javascript: showVpLink('untitled.vpp://diagram/bwOyEQKGAqESXANQ', 'Silnik\nuntitled.vpp://diagram/bwOyEQKGAqESXANQ', this); return false;" href="#">
+			<img src="../images/icons/link.png" border="0"> link</a>
+	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table style="position: absolute; top: 0; left: 0; z-index: 20;" width="100%" cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+<span class="TableContent">Skocz do:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin(this.value);hideLinkPopup();showSpotLight(this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|702.0|272.0|180.0|40.0|Class_0XJKEQKGAqESXAQw.html|Class_0XJKEQKGAqESXAQw.html|0XJKEQKGAqESXAQv" id="option0XJKEQKGAqESXAQv">CompPosition : Class</option>
+<option value="shape|572.0|192.0|80.0|40.0|Class___RKEQKGAqESXAQo.html|Class___RKEQKGAqESXAQo.html|._RKEQKGAqESXAQn" id="option._RKEQKGAqESXAQn">Component : Class</option>
+<option value="shape|542.0|32.0|230.0|117.0|Class_5oeKEQKGAqESXAQb.html|Class_5oeKEQKGAqESXAQb.html|5oeKEQKGAqESXAQa" id="option5oeKEQKGAqESXAQa">GameObject : Class</option>
+<option value="shape|162.0|92.0|140.0|132.0|Class_aofyEQKGAqESXAPe.html|Class_aofyEQKGAqESXAPe.html|aofyEQKGAqESXAPd" id="optionaofyEQKGAqESXAPd">Engine : Class</option>
+<option value="shape|12.0|92.0|80.0|40.0|Class_EpzyEQKGAqESXAOt.html|Class_EpzyEQKGAqESXAOt.html|EpzyEQKGAqESXAOs" id="optionEpzyEQKGAqESXAOs">IO : Class</option>
+<option value="shape|52.0|322.0|80.0|40.0|Class_mdJyEQKGAqESXAN3.html|Class_mdJyEQKGAqESXAN3.html|mdJyEQKGAqESXAN2" id="optionmdJyEQKGAqESXAN2">Renderer : Class</option>
+<option value="shape|212.0|2.0|80.0|40.0|Class_qYRyEQKGAqESXANr.html|Class_qYRyEQKGAqESXANr.html|0YRyEQKGAqESXANq" id="option0YRyEQKGAqESXANq">Game : Class</option>
+<option value="shape|612.0|272.0|80.0|40.0|Class_cwGn0QKGAqESXATU.html|Class_cwGn0QKGAqESXATU.html|cwGn0QKGAqESXATT" id="optioncwGn0QKGAqESXATT">CompSprite : Class</option>
+<option value="shape|342.0|122.0|189.0|40.0|Class_T_cf0QKGAqESXAW2.html|Class_T_cf0QKGAqESXAW2.html|T.cf0QKGAqESXAW1" id="optionT.cf0QKGAqESXAW1">Scene : Class</option>
+<option value="shape|192.0|322.0|291.0|132.0|Class_SvPf0QKGAqESXAXl.html|Class_SvPf0QKGAqESXAXl.html|SvPf0QKGAqESXAXk" id="optionSvPf0QKGAqESXAXk">Module : Class</option>
+<option value="shape|542.0|432.0|150.0|40.0|Class_6tE4MQKGAqESXAdD.html|Class_6tE4MQKGAqESXAdD.html|6tE4MQKGAqESXAdC" id="option6tE4MQKGAqESXAdC">Vector2F : Class</option>
+<option value="shape|702.0|362.0|155.0|40.0|Class_77iEMQKGAqESXAdh.html|Class_77iEMQKGAqESXAdh.html|77iEMQKGAqESXAdg" id="option77iEMQKGAqESXAdg">Vector3F : Class</option>
+<option value="shape|572.0|352.0|84.0|40.0|Class_AM9EMQKGAqESXAed.html|Class_AM9EMQKGAqESXAed.html|AM9EMQKGAqESXAec" id="optionAM9EMQKGAqESXAec">Sprite : Class</option>
+<option value="shape|512.0|272.0|80.0|40.0|Class_L2p0MQKGAqESXAi2.html|Class_L2p0MQKGAqESXAi2.html|L2p0MQKGAqESXAi1" id="optionL2p0MQKGAqESXAi1">CompGUI : Class</option>
+<option value="shape|2.0|202.0|123.0|54.0|Class_l_sMMQKGAqESXAjq.html|Class_l_sMMQKGAqESXAjq.html|l.sMMQKGAqESXAjp" id="optionl.sMMQKGAqESXAjp">Settings : Class</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table style="position: relative; top: 24;" width="100%" cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/Silnik.png" usemap="#diagram_map" class="Image" width="886" height="476"/>
+					<map name="diagram_map">
+<area coords="385.0, 162.0, 385.0, 322.0, 399.0, 322.0, 399.0, 162.0" coords2="385.0, 162.0, 385.0, 322.0, 399.0, 322.0, 399.0, 162.0" shape="poly" alt="Moduł:Association" id="areadiagram_map_5ctyEQKGAqESXAOZ" href="Association_5ctyEQKGAqESXAOU.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="245.0, 42.0, 245.0, 92.0, 259.0, 92.0, 259.0, 42.0" coords2="245.0, 42.0, 245.0, 92.0, 259.0, 92.0, 259.0, 42.0" shape="poly" alt=":Association" id="areadiagram_map_Q8UKEQKGAqESXAQA" href="Association_HcUKEQKGAqESXAP7.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="652.0, 223.15152, 652.0, 232.0, 640.2692, 232.0, 702.0, 280.63635, 702.0, 272.0, 714.0, 272.0, 652.0, 223.15152" coords2="652.0, 223.15152, 652.0, 232.0, 640.2692, 232.0, 702.0, 280.63635, 702.0, 272.0, 714.0, 272.0, 652.0, 223.15152" shape="poly" alt=":Generalization" id="areadiagram_map_lXJKEQKGAqESXAQ0" href="Generalization__XJKEQKGAqESXAQz.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="635.0, 232.0, 635.0, 272.0, 649.0, 272.0, 649.0, 232.0" coords2="635.0, 232.0, 635.0, 272.0, 649.0, 272.0, 649.0, 232.0" shape="poly" alt=":Generalization" id="areadiagram_map_Q0Gn0QKGAqESXATe" href="Generalization_NEGn0QKGAqESXATd.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="302.0, 155.0, 302.0, 169.0, 352.0, 169.0, 352.0, 162.0, 342.0, 162.0, 342.0, 155.0" coords2="302.0, 155.0, 302.0, 169.0, 352.0, 169.0, 352.0, 162.0, 342.0, 162.0, 342.0, 155.0" shape="poly" alt=":Association" id="areadiagram_map_npcf0QKGAqESXAW9" href="Association_Rxcf0QKGAqESXAW4.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="415.0, 162.0, 415.0, 322.0, 429.0, 322.0, 429.0, 162.0" coords2="415.0, 162.0, 415.0, 322.0, 429.0, 322.0, 429.0, 162.0" shape="poly" alt=":Generalization" id="areadiagram_map_r5_f0QKGAqESXAXy" href="Generalization_lp_f0QKGAqESXAXx.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="132.0, 345.0, 132.0, 359.0, 192.0, 359.0, 192.0, 345.0" coords2="132.0, 345.0, 132.0, 359.0, 192.0, 359.0, 192.0, 345.0" shape="poly" alt=":Generalization" id="areadiagram_map_o.A_0QKGAqESXAX5" href="Generalization_HOA_0QKGAqESXAX4.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="92.0, 105.0, 92.0, 119.0, 162.0, 119.0, 162.0, 105.0" coords2="92.0, 105.0, 92.0, 119.0, 162.0, 119.0, 162.0, 105.0" shape="poly" alt=":Association" id="areadiagram_map_MWYQMQKGAqESXAaU" href="Association_eGYQMQKGAqESXAaP.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="735.0, 312.0, 735.0, 362.0, 749.0, 362.0, 749.0, 312.0" coords2="735.0, 312.0, 735.0, 362.0, 749.0, 362.0, 749.0, 312.0" shape="poly" alt=":Association" id="areadiagram_map_SfiEMQKGAqESXAdo" href="Association_e3iEMQKGAqESXAdj.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="605.0, 302.0, 605.0, 352.0, 619.0, 352.0, 619.0, 312.0, 612.0, 312.0, 612.0, 302.0" coords2="605.0, 302.0, 605.0, 352.0, 619.0, 352.0, 619.0, 312.0, 612.0, 312.0, 612.0, 302.0" shape="poly" alt=":Association" id="areadiagram_map_KM9EMQKGAqESXAel" href="Association_KM9EMQKGAqESXAeg.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="585.0, 149.0, 585.0, 192.0, 599.0, 192.0, 599.0, 149.0" coords2="585.0, 149.0, 585.0, 192.0, 599.0, 192.0, 599.0, 149.0" shape="poly" alt=":Association" id="areadiagram_map_l3BkMQKGAqESXAhH" href="Association_knBkMQKGAqESXAhC.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="536.0, 137.0, 475.29688, 322.0, 483.0, 322.0, 483.0, 331.14285, 483.0, 331.14285, 487.0, 332.0, 547.36127, 149.0, 542.0, 149.0, 542.0, 138.71428, 536.0, 137.0" coords2="536.0, 137.0, 475.29688, 322.0, 483.0, 322.0, 483.0, 331.14285, 483.0, 331.14285, 487.0, 332.0, 547.36127, 149.0, 542.0, 149.0, 542.0, 138.71428, 536.0, 137.0" shape="poly" alt=":Association" id="areadiagram_map_JkJkMQKGAqESXAha" href="Association_I4JkMQKGAqESXAhV.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="635.0, 392.0, 635.0, 432.0, 649.0, 432.0, 649.0, 392.0" coords2="635.0, 392.0, 635.0, 432.0, 649.0, 432.0, 649.0, 392.0" shape="poly" alt=":Association" id="areadiagram_map_Y9c0MQKGAqESXAiL" href="Association_XNc0MQKGAqESXAiG.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="565.0, 182.0, 565.0, 272.0, 579.0, 272.0, 579.0, 232.0, 572.0, 232.0, 572.0, 192.0, 579.0, 192.0, 579.0, 182.0" coords2="565.0, 182.0, 565.0, 272.0, 579.0, 272.0, 579.0, 232.0, 572.0, 232.0, 572.0, 192.0, 579.0, 192.0, 579.0, 182.0" shape="poly" alt=":Generalization" id="areadiagram_map_XUl0MQKGAqESXAi." href="Generalization_tEl0MQKGAqESXAi9.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="575.0, 312.0, 575.0, 352.0, 589.0, 352.0, 589.0, 312.0" coords2="575.0, 312.0, 575.0, 352.0, 589.0, 352.0, 589.0, 312.0" shape="poly" alt=":Association" id="areadiagram_map_1u10MQKGAqESXAjL" href="Association_v210MQKGAqESXAjG.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area coords="125.0, 215.0, 125.0, 229.0, 172.0, 229.0, 172.0, 224.0, 162.0, 224.0, 162.0, 215.0" coords2="125.0, 215.0, 125.0, 229.0, 172.0, 229.0, 172.0, 224.0, 162.0, 224.0, 162.0, 215.0" shape="poly" alt=":Association" id="areadiagram_map_KwqMMQKGAqESXAj2" href="Association_SgqMMQKGAqESXAjx.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;Ustawienia 
+      silnika.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="2, 202, 125, 256" coords2="2, 202, 125, 256" shape="rect" alt="Settings:Class" id="areadiagram_map_l.sMMQKGAqESXAjp" href="Class_l_sMMQKGAqESXAjq.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;Komponent 
+      GUI. Zawiera tekstur&amp;#281;, kt&amp;#243;ra b&amp;#281;dzie wyrysowana na ekranie.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="512, 272, 592, 312" coords2="512, 272, 592, 312" shape="rect" alt="CompGUI:Class" id="areadiagram_map_L2p0MQKGAqESXAi1" href="Class_L2p0MQKGAqESXAi2.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;Klasa 
+      tekstury.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="572, 352, 656, 392" coords2="572, 352, 656, 392" shape="rect" alt="Sprite:Class" id="areadiagram_map_AM9EMQKGAqESXAec" href="Class_AM9EMQKGAqESXAed.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;3-wymiarowy 
+      wektor float.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="702, 362, 857, 402" coords2="702, 362, 857, 402" shape="rect" alt="Vector3F:Class" id="areadiagram_map_77iEMQKGAqESXAdg" href="Class_77iEMQKGAqESXAdh.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;2-wymiarowy 
+      wektor float.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="542, 432, 692, 472" coords2="542, 432, 692, 472" shape="rect" alt="Vector2F:Class" id="areadiagram_map_6tE4MQKGAqESXAdC" href="Class_6tE4MQKGAqESXAdD.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;Abstarakcyjna 
+      klasa modu&amp;#322;u. Z niej dziedzicz&amp;#261; poszczeg&amp;#243;lne cz&amp;#281;&amp;#347;ci silnika.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="192, 322, 483, 454" coords2="192, 322, 483, 454" shape="rect" alt="Module:Class" id="areadiagram_map_SvPf0QKGAqESXAXk" href="Class_SvPf0QKGAqESXAXl.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;Scena 
+      zawieraj&amp;#261;ca modu&amp;#322;y i obiekty sceny.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="342, 122, 531, 162" coords2="342, 122, 531, 162" shape="rect" alt="Scene:Class" id="areadiagram_map_T.cf0QKGAqESXAW1" href="Class_T_cf0QKGAqESXAW2.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;Tekstura 
+      obiektu. Rysowana podczas wywo&amp;#322;ania onDraw.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="612, 272, 692, 312" coords2="612, 272, 692, 312" shape="rect" alt="CompSprite:Class" id="areadiagram_map_cwGn0QKGAqESXATT" href="Class_cwGn0QKGAqESXATU.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;Komponent 
+      pozycji. Pozycja jest okre&amp;#347;lona w 3 wymiarach. 2 wymiary oznaczaj&amp;#261; 
+      pozycj&amp;#281; na ekranie, a 3. g&amp;#322;&amp;#281;boko&amp;#347;&amp;#263;.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="702, 272, 882, 312" coords2="702, 272, 882, 312" shape="rect" alt="CompPosition:Class" id="areadiagram_map_0XJKEQKGAqESXAQv" href="Class_0XJKEQKGAqESXAQw.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;Abstrakcyjna 
+      klasa komponentu. Z niej dziedzicz&amp;#261; poszczeg&amp;#243;lne klasy u&amp;#380;ywane przez 
+      modu&amp;#322;y.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="572, 192, 652, 232" coords2="572, 192, 652, 232" shape="rect" alt="Component:Class" id="areadiagram_map_._RKEQKGAqESXAQn" href="Class___RKEQKGAqESXAQo.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;Obiekt 
+      w grze. Sk&amp;#322;ada si&amp;#281; z komponent&amp;#243;w, kt&amp;#243;re s&amp;#261; u&amp;#380;ywane przez r&amp;#243;&amp;#380;ne modu&amp;#322;y.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="542, 32, 772, 149" coords2="542, 32, 772, 149" shape="rect" alt="GameObject:Class" id="areadiagram_map_5oeKEQKGAqESXAQa" href="Class_5oeKEQKGAqESXAQb.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;Silnik 
+      gry. Zarz&amp;#261;dza dzia&amp;#322;aniem aplikacji.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="162, 92, 302, 224" coords2="162, 92, 302, 224" shape="rect" alt="Engine:Class" id="areadiagram_map_aofyEQKGAqESXAPd" href="Class_aofyEQKGAqESXAPe.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;Klasa 
+      odpowiedzialna za sterowanie.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="12, 92, 92, 132" coords2="12, 92, 92, 132" shape="rect" alt="IO:Class" id="areadiagram_map_EpzyEQKGAqESXAOs" href="Class_EpzyEQKGAqESXAOt.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;Modu&amp;#322; 
+      odpowiedziany za renderowanie obiekt&amp;#243;w gry.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="52, 322, 132, 362" coords2="52, 322, 132, 362" shape="rect" alt="Renderer:Class" id="areadiagram_map_mdJyEQKGAqESXAN2" href="Class_mdJyEQKGAqESXAN3.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p&amp;gt;
+      &amp;lt;font color=&amp;quot;#000000&amp;quot; face=&amp;quot;Courier New&amp;quot; size=&amp;quot;11px&amp;quot; style=&amp;quot;font-size:11px;&amp;quot;&amp;gt;G&amp;#322;&amp;#243;wny 
+      obiekt aplikacji. Inicjalizuje silnik i gr&amp;#281;.&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="212, 2, 292, 42" coords2="212, 2, 292, 42" shape="rect" alt="Game:Class" id="areadiagram_map_0YRyEQKGAqESXANq" href="Class_qYRyEQKGAqESXANr.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Elementy modelu 			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Nazwa</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Dokumentacja</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_0XJKEQKGAqESXAQw.html">CompPosition : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">Komponent 
+      pozycji. Pozycja jest okre&#347;lona w 3 wymiarach. 2 wymiary oznaczaj&#261; 
+      pozycj&#281; na ekranie, a 3. g&#322;&#281;boko&#347;&#263;.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class___RKEQKGAqESXAQo.html">Component : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">Abstrakcyjna 
+      klasa komponentu. Z niej dziedzicz&#261; poszczeg&#243;lne klasy u&#380;ywane przez 
+      modu&#322;y.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_5oeKEQKGAqESXAQb.html">GameObject : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">Obiekt 
+      w grze. Sk&#322;ada si&#281; z komponent&#243;w, kt&#243;re s&#261; u&#380;ywane przez r&#243;&#380;ne modu&#322;y.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_aofyEQKGAqESXAPe.html">Engine : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">Silnik 
+      gry. Zarz&#261;dza dzia&#322;aniem aplikacji.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_EpzyEQKGAqESXAOt.html">IO : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">Klasa 
+      odpowiedzialna za sterowanie.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_mdJyEQKGAqESXAN3.html">Renderer : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">Modu&#322; 
+      odpowiedziany za renderowanie obiekt&#243;w gry.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_qYRyEQKGAqESXANr.html">Game : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">G&#322;&#243;wny 
+      obiekt aplikacji. Inicjalizuje silnik i gr&#281;.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_cwGn0QKGAqESXATU.html">CompSprite : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">Tekstura 
+      obiektu. Rysowana podczas wywo&#322;ania onDraw.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_T_cf0QKGAqESXAW2.html">Scene : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">Scena 
+      zawieraj&#261;ca modu&#322;y i obiekty sceny.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_SvPf0QKGAqESXAXl.html">Module : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">Abstarakcyjna 
+      klasa modu&#322;u. Z niej dziedzicz&#261; poszczeg&#243;lne cz&#281;&#347;ci silnika.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_6tE4MQKGAqESXAdD.html">Vector2F : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">2-wymiarowy 
+      wektor float.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_77iEMQKGAqESXAdh.html">Vector3F : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">3-wymiarowy 
+      wektor float.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_AM9EMQKGAqESXAed.html">Sprite : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">Klasa 
+      tekstury.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_L2p0MQKGAqESXAi2.html">CompGUI : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">Komponent 
+      GUI. Zawiera tekstur&#281;, kt&#243;ra b&#281;dzie wyrysowana na ekranie.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_l_sMMQKGAqESXAjq.html">Settings : Klasa</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px;">Ustawienia 
+      silnika.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		untitled Dokumentacja	</div>
+</body>
+</html>
